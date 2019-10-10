@@ -85,8 +85,17 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Miss Mary Mack',
+    date: 'Oct 7th, 2019',
+    firstParagraph: `Miss Mary Mack Mack Mack. All dressed in black, black, black. With silver buttons, buttons, buttons. All down her back, back, back.`,
+    
+    secondParagraph: `She asked her mother, mother, mother. For 50 cents, cents, cents. To see the elephants, elephants, elephants. Jump over the fence, fence, fence.`,
+    
+    thirdParagraph: `They jumped so high, high, high. They reached the sky, sky, sky. And they didn't come back, back, back. 'Til the 4th of July, ly, ly!`
   }
-];
+  ];
 
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
   
@@ -112,3 +121,43 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+const createComponent = content => {
+  let div = document.createElement('div');
+  div.classList.add('article');
+
+  let h2 = document.createElement('h2');
+  h2.textContent = content.title;
+  div.appendChild(h2);
+
+  let date = document.createElement('p');
+  date.textContent = content.date;
+  div.appendChild(date);
+
+  const paragraphs = [];
+  for(let i = 0; i < 3; i++) {
+    paragraphs.push(document.createElement('p'));
+  }
+    
+  paragraphs[0].textContent = content.firstParagraph;
+  paragraphs[1].textContent = content.secondParagraph;
+  paragraphs[2].textContent = content.thirdParagraph;
+  
+  paragraphs.forEach(p => div.appendChild(p));
+
+  let span = document.createElement('span');
+  span.textContent = '\u2BB7';
+  span.classList.add('expandButton');
+  div.appendChild(span);
+
+  span.addEventListener('click', () => {
+    div.classList.toggle('article-open');
+  })
+
+  return div;
+}
+
+let articles = document.querySelector('.articles')
+
+data.forEach(content => articles.append(createComponent(content)));
+
+
